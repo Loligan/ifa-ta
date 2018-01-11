@@ -1,0 +1,82 @@
+version: '2'
+services:
+  nginx:
+    build: ./docker/nginx
+    depends_on:
+      - php7
+      - db
+      - rabbitmq
+    volumes:
+      - ./app:/var/www
+    ports:
+      - "80:80"
+  php7:
+    build: ./docker/php7
+    ports:
+      - "9000"
+    volumes:
+      - ./app:/var/www
+    working_dir: /var/www
+    environment:
+      SYMFONY__DATABASE__NAME: db
+      SYMFONY__DATABASE__USER: user
+      SYMFONY__DATABASE__PASSWORD: pass
+      SYMFONY__RABBITMQ__USER: ta
+      SYMFONY__RABBITMQ__PASS: 6omKUdBf
+      SYMFONY__RABBITMQ__VHOST: /ta
+  db:
+    build: ./docker/mysql
+    ports:
+      - "3316:3306"
+    environment:
+      MYSQL_DATABASE: db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: pass
+      MYSQL_ROOT_PASSWORD: pass_root
+    volumes:
+      - ./docker/mysql/mysql-data:/var/lib/mysql
+      - ./docker/mysql/dumps:/docker-entrypoint-initdb.d
+  rabbitmq:
+      build: ./docker/rabbitmq
+      ports:
+        - "5673:5672"
+        - "15673:15672"
+      environment:
+        RABBITMQ_DEFAULT_USER: ta
+        RABBITMQ_DEFAULT_PASS: 6omKUdBf
+        RABBITMQ_DEFAULT_VHOST: /ta
+  hub:
+    image: "selenium/hub:3.4.0-dysprosium"
+    ports:
+      - "4445:4444"
+  chrome_1:
+    image: "selenium/node-chrome:3.4.0-einsteinium"
+    depends_on:
+      - hub
+    environment:
+      HUB_PORT_4444_TCP_ADDR: hub
+      HUB_PORT_4444_TCP_PORT: 4444
+    links:
+      - hub
+  worker_supervisor:
+    build: ./docker/php7_worker_supervisor
+    ports:
+      - "9002:9001"
+    volumes:
+      - ./app:/var/www
+      - ./docker/php7_worker_supervisor/conf.d:/etc/supervisor/conf.d
+    working_dir: /var/www
+    environment:
+      SYMFONY__DATABASE__NAME: db
+      SYMFONY__DATABASE__USER: user
+      SYMFONY__DATABASE__PASSWORD: pass
+      SYMFONY__RABBITMQ__USER: ta
+      SYMFONY__RABBITMQ__PASS: 6omKUdBf
+      SYMFONY__RABBITMQ__VHOST: /ta
+    links:
+      - db
+      - rabbitmq
+    depends_on:
+      - db
+      - php7
+      - rabbitmq
