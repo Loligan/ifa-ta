@@ -1,0 +1,68 @@
+{% extends "@TestAutomationAll4Bom/base-ta.html.twig" %}
+{% block body %}
+
+    <h3>Result test range: {{ range }}</h3>
+    <div class="ui selection dropdown">
+        <input type="hidden" name="range" id="inputRange">
+        <i class="dropdown icon"></i>
+        <div class="default text">Select test range</div>
+        <div class="menu">
+            {% for range in all_ranges %}
+                <div class="item" value="{{ path('test_automation_all4_bom_get_last_range_result',{'range':range.testRange}) }}">{{ range.testRange }}</div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <button class="ui basic button" id="openRangePage">
+        Show test range
+    </button>
+
+
+    <table class="ui very compact table">
+    <thead>
+    <tr>
+        <th>Is smoke</th>
+        <th>Tag ID</th>
+        <th>Feature</th>
+        <th>Tags</th>
+        <th>Url</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for testRange in testRanges %}
+        <tr>
+            <td>{{ testRange.scenarioId.isSmoke }}</td>
+            <td>{{ testRange.scenarioId.tagId }}</td>
+            <td>{{ testRange.scenarioId.featureId.feature }}</td>
+            <td>{{ testRange.scenarioId.featureId.tags }}</td>
+            <td>{{ testRange.url }}</td>
+            <td>{{ testRange.status }}</td>
+            <td>
+                <a class="ui basic small button"
+                   href="{{ path('test_automation_all4_bom_view_report',{'queue_test':testRange.id}) }}">Show report</a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+
+    <script>
+        $('.ui.dropdown')
+            .dropdown()
+        ;
+
+        $("#openRangePage").click(function () {
+            console.log('HELLO');
+            var path = "{{ path('test_automation_all4_bom_get_last_range_result') }}";
+            var num = $("#inputRange").val();
+            if(num === ("")){
+                var urlRange = path;
+            }else {
+                var urlRange = path+"/"+num;
+            }
+            window.location.href=urlRange;
+        });
+    </script>
+
+{% endblock %}

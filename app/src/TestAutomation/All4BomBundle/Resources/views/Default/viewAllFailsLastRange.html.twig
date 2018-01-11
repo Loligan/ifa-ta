@@ -1,0 +1,49 @@
+{% extends "@TestAutomationAll4Bom/base-ta.html.twig" %}
+{% block stylesheets %}
+    <style>
+{##}
+{##}
+        .ui.table {
+            font-size: 10px;
+        }
+/**/
+        th {
+            font-size: 12px;
+        }
+/**/
+        tr {
+            line-height: 12px;
+        }
+/**/
+    </style>
+    {% endblock %}
+{% block body %}
+    <table class="ui fixed celled table striped">
+    <thead>
+    <tr>
+        <th class="one wide">Is smoke</th>
+        <th class="two wide">Fail step</th>
+        <th class="two wide">Feature</th>
+        <th class="two wide">Scenario name</th>
+        <th class="one wide">Test range</th>
+        <th class="two wide">Url</th>
+        <th class="one wide">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for scenario in scenarios%}
+        <tr>
+            <td>{{ scenario.scenarioId.isSmoke}}</td>
+            <td> {{ scenario.behatReport.failStep}}</td>
+            <td>{{ scenario.scenarioId.featureId.feature}}</td>
+            <td>{{ scenario.scenarioId.scenario}}</td>
+            <td>{{ scenario.testRange }}</td>
+            <td>{{ scenario.url }}</td>
+            <td>
+                <a class="ui basic small button" href="{{ path('test_automation_all4_bom_view_scenario_by_range',{'scenario':scenario.scenarioId.id,'testRange':scenario.testRange}) }}">Show report</a>
+
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+{% endblock %}

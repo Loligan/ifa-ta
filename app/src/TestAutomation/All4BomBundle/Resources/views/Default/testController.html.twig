@@ -1,0 +1,245 @@
+{% extends "@TestAutomationAll4Bom/base-ta.html.twig" %}
+{% block body %}
+
+    <div class="ui hidden info message" id="message"></div>
+
+
+    <form class="ui form">
+        <h4 class="ui dividing header">Controller</h4>
+        <div class="field">
+            <label>Select site</label>
+            <div class="one fields">
+                <div class="field">
+                    <div class="ui radio checkbox">
+                        <input type="radio" name="site_host" value="http://all4cables.com:8378" checked="checked">
+                        <label>all4cables.com</label>
+                    </div>
+                </div>
+            </div>
+            <div class="one fields">
+                <div class="field">
+                    <div class="ui radio checkbox">
+                        <input type="radio" value="http://all4bom.smartdesign.by:8378" name="site_host">
+                        <label>all4bom.smartdesign.by</label>
+                    </div>
+                </div>
+            </div>
+            <div class="one fields">
+                <div class="field">
+                    <div class="ui radio checkbox">
+                        <input type="radio" value="https://195.181.247.128:8378" name="site_host">
+                        <label>195.181.247.128</label>
+                    </div>
+                </div>
+            </div>
+
+            <label>Select email report</label>
+            <div class="one fields">
+                <div class="field">
+                    <div class="ui celled relaxed list">
+                        <div class="item">
+                            <div class="ui master checkbox">
+                                <input type="checkbox" name="fruits">
+                                <label>All</label>
+                            </div>
+                            <div class="list">
+                                {% for user in users %}
+                                    <div class="item">
+                                        <div class="ui child checkbox">
+                                            <input type="checkbox" name="repemail" value="{{ user.id }}">
+                                            <label>{{ user.email }}</label>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="five fields">
+                <div class="field">
+                    <a class="ui basic button" id="send-smoke">
+                        <i class="star half icon"></i>
+                        Run smoke scenario
+                    </a>
+                </div>
+                <div class="field">
+                    <a class="ui basic button" id="send-all">
+                        <i class="star icon"></i>
+                        Run all scenario
+                    </a>
+                </div>
+
+            </div>
+        </div>
+        <div class="field">
+            <label>Controller tests</label>
+            <div class="six fields">
+                <div class="field">
+                    <a class="ui basic button" id="stop-all">
+                        <i class="remove icon"></i>
+                        Stop all
+                    </a>
+                </div>
+                <div class="field">
+                    <a class="ui basic button" id="pause-all">
+                        <i class="pause icon"></i>
+                        Pause all
+                    </a>
+                </div>
+                <div class="field">
+                    <a class="ui basic button" id="resume-all">
+                        <i class="play icon"></i>
+                        Resume all
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="field">
+            <label>Rerun tests</label>
+            <div class="six fields">
+                <div class="field">
+                    <a class="ui basic button" id="rerun">
+                        <i class="refresh icon"></i>
+                        Rerun fail last TR
+                    </a>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <script>
+
+        $("#send-smoke").click(function () {
+            var url_test = $("input[name='site_host']:checked").val();
+            var idsReport = $("input[name=repemail]:checked").map(
+                function () {return this.value;}).get();
+            $("#send-smoke").addClass("loading");
+            $.ajax({
+                url: "/send_run_smoke",
+                type: "POST",
+                data: {url: url_test,idsReport:idsReport},
+                dataType: "json",
+            }).done(function (data) {
+                $("#send-smoke").removeClass("loading");
+                $("#message").removeClass("hidden");
+                $("#message").text("All scenario be resume");
+                refreshTop();
+            })
+                .fail(function (data) {
+                    $("#send-smoke").removeClass("loading");
+                    $("#message").removeClass("hidden");
+                    $("#message").text("Error! Scenarios not be send");
+                });
+
+        });
+
+        $("#send-all").click(function () {
+            var url_test = $("input[name='site_host']:checked").val();
+            var idsReport = $("input[name=repemail]:checked").map(
+                function () {return this.value;}).get();
+            $("#send-all").addClass("loading");
+            $.ajax({
+                url: "/send_run_all",
+                type: "POST",
+                data: {url: url_test,idsReport:idsReport},
+                dataType: "json",
+            }).done(function (data) {
+                $("#send-all").removeClass("loading");
+                $("#message").removeClass("hidden");
+                $("#message").text("All scenario be resume");
+                refreshTop();
+            })
+                .fail(function (data) {
+                    $("#send-all").removeClass("loading");
+                    $("#message").removeClass("hidden");
+                    $("#message").text("Error! Scenarios not be send");
+                });
+
+        });
+
+        $("#stop-all").click(function () {
+            $("#stop-all").addClass("loading");
+            $.ajax({
+                type: "POST",
+                timeout: 3000000,
+                url: "/stop_all",
+                contentType: "application/json"
+            }).done(function (data) {
+                $("#stop-all").removeClass("loading");
+                $("#message").removeClass("hidden");
+                $("#message").text("All scenario be stoped ");
+                refreshTop();
+            })
+                .fail(function (data) {
+                    $("#stop-all").removeClass("loading");
+                    $("#message").removeClass("hidden");
+                    $("#message").text("Error! Scenarios not be send");
+                });
+
+        });
+        $("#pause-all").click(function () {
+            $("#pause-all").addClass("loading");
+            $.ajax({
+                type: "POST",
+                timeout: 3000000,
+                url: "/pause_all",
+                contentType: "application/json"
+            }).done(function (data) {
+                $("#pause-all").removeClass("loading");
+                $("#message").removeClass("hidden");
+                $("#message").text("All scenario be pause ");
+                refreshTop();
+            })
+                .fail(function (data) {
+                    $("#pause-all").removeClass("loading");
+                    $("#message").removeClass("hidden");
+                    $("#message").text("Error! Scenarios not be send");
+                });
+
+        });
+        $("#resume-all").click(function () {
+            $("#resume-all").addClass("loading");
+            $.ajax({
+                type: "POST",
+                timeout: 3000000,
+                url: "/resume_all",
+                contentType: "application/json"
+            }).done(function (data) {
+                $("#resume-all").removeClass("loading");
+                $("#message").removeClass("hidden");
+                $("#message").text("All scenario be resume");
+                refreshTop();
+            })
+                .fail(function (data) {
+                    $("#resume-all").removeClass("loading");
+                    $("#message").removeClass("hidden");
+                    $("#message").text("Error! Scenarios not be send");
+                });
+
+        });
+        $("#rerun").click(function () {
+            $("#rerun").addClass("loading");
+            $.ajax({
+                type: "POST",
+                timeout: 3000000,
+                url: "/rerun",
+                contentType: "application/json"
+            }).done(function (data) {
+                $("#rerun").removeClass("loading");
+                $("#message").removeClass("hidden");
+                $("#message").text(data["send"]+" scenario rerun");
+                refreshTop();
+            })
+                .fail(function (data) {
+                    $("#rerun").removeClass("loading");
+                    $("#message").removeClass("hidden");
+                    $("#message").text("Error! Scenarios not be send");
+                });
+
+        });
+
+    </script>
+{% endblock %}

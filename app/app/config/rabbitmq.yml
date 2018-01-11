@@ -1,0 +1,25 @@
+old_sound_rabbit_mq:
+    connections:
+        default:
+            host:        "rabbitmq"
+            port:        "5672"
+            user:        "ta"
+            password:    "6omKUdBf"
+            vhost:       "/ta"
+            lazy:        true
+            connection_timeout: 60
+            read_write_timeout: 60
+            keepalive: false
+            heartbeat: 0
+
+    producers:
+        run_test_by_tag:
+            connection:         default
+            exchange_options:   {name: 'run_test_by_tag', type: direct}
+    consumers:
+        run_test_by_tag:
+            connection:       default
+            exchange_options: {name: 'run_test_by_tag', type: direct}
+            queue_options:    {name: 'run_test_by_tag'}
+            callback:         run_test_by_tag
+            qos_options:      {prefetch_size: 0, prefetch_count: 1, global: false}

@@ -1,0 +1,132 @@
+{% extends "@TestAutomationAll4Bom/base-ta.html.twig" %}
+{% block javascripts %}
+    <script type="text/javascript">
+        <!--
+        function toggle_visibility(id) {
+            var e = document.getElementById(id);
+            if (e.style.display == 'block')
+                e.style.display = 'none';
+            else
+                e.style.display = 'block';
+        }
+
+        //-->
+    </script>
+{% endblock %}
+{% block body %}
+    <div class="ui form">
+    <h4 class="ui dividing header">Scenario information</h4>
+    <div class="field">
+        <div class="two fields">
+            <div class="field">
+                <label>Is smoke: </label>{{ scenario.isSmoke }}
+            </div>
+            <div class="field">
+                <label>Tag ID: </label>{{ scenario.tagId }}
+            </div>
+        </div>
+    </div>
+    <div class="field">
+        <button onclick="toggle_visibility('all-steps');" class="fluid basic ui button">All steps scenario</button>
+        <div style="display: none" id="all-steps">
+            <textarea>  {{ scenario.steps }}</textarea>
+        </div>
+    </div>
+
+
+    {% if queueTestData is not null %}
+    <h4 class="ui dividing header">Test range information</h4>
+    <div class="field">
+        <div class="three fields">
+            <div class="field">
+                <label>Status </label>{{ queueTestData.status }}
+            </div>
+            <div class="field">
+                <label>Number test range </label>{{ queueTestData.testRange }}
+            </div>
+
+            <div class="field">
+                <label>Url </label>{{ queueTestData.url }}
+            </div>
+        </div>
+        <div class="field">
+            <label>Fail step </label>
+            {% if behatTestData is not null %}
+                {% if behatTestData.failStep is not null %}
+                    {{ behatTestData.failStep }}
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="ui">
+        {% if behatTestData is not null %}
+            <button onclick="toggle_visibility('behat');" class="fluid basic ui button">Behat report</button>
+            <div style="display: none" id="behat">
+                <div class="ui message">
+                    <div class="header">
+                        Fail step
+                    </div>
+                    {{ behatTestData.failStep }}
+                    <br><br>
+                    <div class="header">
+                        Pass steps
+                    </div>
+                    <div class="ui form">
+                        <label>Pass step</label>
+                        <textarea>  {{ behatTestData.passStep }}</textarea>
+                    </div>
+                </div>
+
+
+            </div>
+        {% else %}
+            <div class="ui warning message">
+                Behat report nope
+            </div>
+        {% endif %}
+    </div>
+
+    {% if consoleTestData is not null %}
+    <button onclick="toggle_visibility('consol');" class="fluid basic ui button">Console report</button>
+    <div style="display: none"  id="consol" class="ui form">
+        <div class="field">
+            <label>Console</label>
+            <textarea>  {{ consoleTestData.output }}</textarea>
+        </div>
+    </div>
+        {% else %}
+            <div class="ui message">
+                Console report nope
+            </div>
+        {% endif %}
+
+        <div class="ui">
+            <button onclick="toggle_visibility('imgrep');" class="fluid ui basic button">Screenshots ({{ imageTestData|length }})
+            </button>
+            {% if imageTestData|length > 0 %}
+            <div style="display: none" id="imgrep">
+                <div class="ui link cards">
+                    {% for image in imageTestData %}
+                        <div class="card">
+                            <div class="image">
+                                <img src="/{{ image.path }}">
+                            </div>
+                            <div class="extra content">
+                                <a class="right floated" href="/{{ image.path }}">Open full image</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+
+        {% else %}
+            <div class="ui message">
+                Last test info not found
+            </div>
+        {% endif %}
+
+{% endblock %}

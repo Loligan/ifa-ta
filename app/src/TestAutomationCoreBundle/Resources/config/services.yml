@@ -1,0 +1,8 @@
+services:
+    test_automation_core.behat_connection:
+        class: TestAutomationCoreBundle\src\BehatConnection\BehatConnection
+        arguments: ["@doctrine"]
+
+    runner_tests:
+        class: TestAutomationCoreBundle\src\BehatConnection\SenderScenarios
+        arguments: ['@doctrine','@old_sound_rabbit_mq.run_test_by_tag_producer']

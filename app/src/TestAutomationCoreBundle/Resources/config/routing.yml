@@ -1,0 +1,3 @@
+test_automation_core_homepage:
+    path:     /
+    defaults: { _controller: TestAutomationCoreBundle:Feature:index }

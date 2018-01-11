@@ -1,0 +1,8 @@
+*
+!.gitignore
+!Dockerfile
+!dumps
+!config
+!config/*
+!config/conf.d/*
+!config/mysql.conf.d/*

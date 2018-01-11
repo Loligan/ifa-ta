@@ -1,0 +1,26 @@
+{% extends "@TestAutomationAll4Bom/base-ta.html.twig" %}
+{% block body %}
+
+    <table class="ui very compact table">
+    <thead>
+    <tr>
+        <th>Is smoke</th>
+        <th>Tags</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for scenario in scenarios %}
+        <tr>
+            <td>{{ scenario.isSmoke }}</td>
+            <td> {{ scenario.tagId }}</td>
+            <td>
+                <a class="ui basic small button" href="{{ path('test_automation_all4_bom_view_scenario',{'scenario':scenario.id}) }}">Show last report</a>
+                <a class="ui basic small button" href="{{ path('test_automation_all4_bom_view_scenario',{'scenario':scenario.id}) }}">Show list reports</a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+
+
+{% endblock %}

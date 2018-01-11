@@ -1,0 +1,75 @@
+test_automation_all4_bom_homepage:
+    path:     /
+    defaults: { _controller: TestAutomationAll4BomBundle:Default:index }
+
+test_automation_all4_bom_view_scenarios:
+    path:     /scenarios/{feature}
+    defaults: { _controller: TestAutomationAll4BomBundle:Default:viewScenarios }
+
+test_automation_all4_bom_view_scenario:
+    path:     /scenario/{scenario}
+    defaults: { _controller: TestAutomationAll4BomBundle:Default:viewScenario }
+
+test_automation_all4_bom_view_report:
+    path:     /report/{queue_test}
+    defaults: { _controller: TestAutomationAll4BomBundle:Default:viewReport }
+
+test_automation_all4_bom_view_scenario_by_range:
+    path:     /scenario/{scenario}/range/{testRange}
+    defaults: { _controller: TestAutomationAll4BomBundle:Default:viewScenarioInfoByTestRange }
+
+test_automation_all4_bom_view_last_range_fail:
+    path:     /last_fail
+    defaults: { _controller: TestAutomationAll4BomBundle:Default:viewLastRangeFail}
+
+test_automation_all4_bom_test_ctrl:
+    path:     /test_controller
+    defaults: { _controller: TestAutomationAll4BomBundle:Default:testController}
+
+
+test_automation_all4_bom_send_run_all:
+    path:     /send_run_all
+    defaults: { _controller: TestAutomationAll4BomBundle:Default:sendRunAll}
+
+
+test_automation_all4_bom_send_run_smoke:
+    path:     /send_run_smoke
+    defaults: { _controller: TestAutomationAll4BomBundle:Default:sendRunSmoke}
+
+test_automation_all4_bom_send_stop_all:
+    path:     /stop_all
+    defaults: { _controller: TestAutomationAll4BomBundle:Default:stopAll}
+
+test_automation_all4_bom_send_pause_all:
+    path:     /pause_all
+    defaults: { _controller: TestAutomationAll4BomBundle:Default:pauseAll}
+
+test_automation_all4_bom_send_resumeAll:
+    path:     /resume_all
+    defaults: { _controller: TestAutomationAll4BomBundle:Default:resumeAll}
+
+test_automation_all4_bom_last_stats:
+    path:     /last_stats
+    defaults: { _controller: TestAutomationAll4BomBundle:Default:lastStats}
+
+
+test_automation_all4_bom_get_count_tests_in_queue:
+    path:     /get_queue_number_test
+    defaults: { _controller: TestAutomationAll4BomBundle:Default:getCountScenariosInQueue}
+
+
+test_automation_all4_bom_get_count_tests_in_queue_pause:
+    path:     /get_queue_number_test_pause
+    defaults: { _controller: TestAutomationAll4BomBundle:Default:getCountScenariosPause}
+
+test_automation_all4_bom_get_last_range_result:
+    path:     /range_result/{range}
+    defaults: { _controller: TestAutomationAll4BomBundle:Default:viewLastRangeResult, range: -1}
+
+test_automation_all4_bom_rerun:
+    path:     /rerun/{range}
+    defaults: { _controller: TestAutomationAll4BomBundle:Default:rerunFailScenarios, range: -1}
+
+test:
+    path: /tst
+    defaults: { _controller: TestAutomationAll4BomBundle:Default:gg}

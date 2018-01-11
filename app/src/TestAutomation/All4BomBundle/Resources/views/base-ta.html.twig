@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>{% block title %}..::TA All4bom Dashboard::..{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
+    <script
+            src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
+
+</head>
+<body>
+<div class="ui container">
+    <div class="ui menu">
+        <a class="browse  item" href="/">
+            Index page
+            <i class="home icon"></i>
+        </a>
+
+        <a class="browse  item" href="{{ path('test_automation_all4_bom_view_last_range_fail') }}">
+            Last fail scenarios
+        </a>
+
+        <a class="browse  item" href="{{ path('test_automation_all4_bom_get_last_range_result') }}">
+            Test range results
+        </a>
+
+        <a class="browse  item" href="{{ path('test_automation_all4_bom_test_ctrl') }}">
+            Scenarios controller
+        </a>
+        <div class="right menu">
+            <a  class="browse  green item" id="refresh_all_top">
+                <i class="refresh icon"></i>
+            </a>
+            <a id='in_progress_top' class="browse  green item">
+                Loading...
+            </a>
+            <a id='pause_top' class="browse  green item">
+                Loading...
+            </a>
+            </a>
+            <a id='last_stats' class="browse  green item">
+                Loading...
+            </a>
+            <a class="browse  green item" href="{{ path('fos_user_security_logout') }}">
+                <i class="sign out icon"></i>
+                Logout
+            </a>
+        </div>
+    </div>
+    {% block body %}{% endblock %}
+    <script src="{{ asset('js/app.js') }}"></script>
+    {% block javascripts %}{% endblock %}
+</div>
+</body>
+</html>
