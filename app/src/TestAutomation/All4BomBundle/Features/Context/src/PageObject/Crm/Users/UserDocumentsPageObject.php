@@ -6,7 +6,7 @@
  * Time: 11.48
  */
 
-namespace TestAutomation\All4BomBundle\Features\Context\src\PageObject\Users;
+namespace TestAutomation\All4BomBundle\Features\Context\src\PageObject\Crm\Users;
 
 
 use TestAutomation\All4BomBundle\Features\Context\src\PageObject\PageObject;
@@ -25,8 +25,8 @@ class UserDocumentsPageObject extends PageObject
 
     public static function checkNumberTableLine($checkNumberLine){
         $elements = self::findElements(self::TABLE_LINE);
-        if(count($elements)!=$checkNumberLine){
-            throw new \Exception("Number lines in table not be equals number line for check");
+        if(count($elements)!=(int)$checkNumberLine){
+            throw new \Exception("Number lines in table not be equals number line for check. Count in table: ".count($elements));
         }
     }
 

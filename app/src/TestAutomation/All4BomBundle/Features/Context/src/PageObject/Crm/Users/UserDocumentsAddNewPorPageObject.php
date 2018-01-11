@@ -6,18 +6,18 @@
  * Time: 11.33
  */
 
-namespace TestAutomation\All4BomBundle\Features\Context\src\PageObject\Users;
+namespace TestAutomation\All4BomBundle\Features\Context\src\PageObject\Crm\Users;
 
 
 use TestAutomation\All4BomBundle\Features\Context\src\PageObject\PageObject;
 
 class UserDocumentsAddNewPorPageObject extends PageObject
 {
-    const PATH = "/documents/create-proof-of-residence";
+    const PATH = "documents/create-proof-of-residence";
 
-    const SUBTYPE_SELECT = './/select[@id="proof_of_identity_form_subtype"]';
-    const SUBTYPE_OPTION = './/select[@id="proof_of_identity_form_subtype"]/option[text()="VALUE"]';
-    const FILE_INPUT = './/*[@id="proof_of_identity_form_file"]';
+    const SUBTYPE_SELECT = './/select[@id="proof_of_address_form_subtype"]';
+    const SUBTYPE_OPTION = './/select[@id="proof_of_address_form_subtype"]/option[text()="VALUE"]';
+    const FILE_INPUT = './/*[@id="proof_of_address_form_file"]';
     const SAVE_BUTTON = './/button[@type="submit"][normalize-space(text())="Save"]';
 
     public static function checkOnPage(){

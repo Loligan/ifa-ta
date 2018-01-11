@@ -18,6 +18,7 @@ class ComposerStaticInit433944a2ef40151a4dd3a380b20d014d
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '6a47392539ca2329373e0d33e1dba053' => __DIR__ . '/..' . '/symfony/polyfill-intl-icu/bootstrap.php',
         '32dcc8afd4335739640db7d200c1971d' => __DIR__ . '/..' . '/symfony/polyfill-apcu/bootstrap.php',
+        'a4ecaeafb8cfb009ad0e052c90355e98' => __DIR__ . '/..' . '/beberlei/assert/lib/Assert/functions.php',
         '719971e375036615a0685b6fb054583d' => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Component/VarDumper/Resources/functions/dump.php',
     );
 
@@ -111,6 +112,7 @@ class ComposerStaticInit433944a2ef40151a4dd3a380b20d014d
         ),
         'A' => 
         array (
+            'Assert\\' => 7,
             'AppBundle\\' => 10,
         ),
     );
@@ -320,6 +322,10 @@ class ComposerStaticInit433944a2ef40151a4dd3a380b20d014d
         'Clue\\StreamFilter\\' => 
         array (
             0 => __DIR__ . '/..' . '/clue/stream-filter/src',
+        ),
+        'Assert\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/beberlei/assert/lib/Assert',
         ),
         'AppBundle\\' => 
         array (

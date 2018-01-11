@@ -6,14 +6,14 @@
  * Time: 11.33
  */
 
-namespace TestAutomation\All4BomBundle\Features\Context\src\PageObject\Users;
+namespace TestAutomation\All4BomBundle\Features\Context\src\PageObject\Crm\Users;
 
 
 use TestAutomation\All4BomBundle\Features\Context\src\PageObject\PageObject;
 
-class UserDocumentsAddNewPopPageObject extends PageObject
+class UserDocumentsAddNewPoiPageObject extends PageObject
 {
-    const PATH = "/documents/create-proof-of-payment";
+    const PATH = "/documents/create-proof-of-identity";
 
     const SUBTYPE_SELECT = './/select[@id="proof_of_identity_form_subtype"]';
     const SUBTYPE_OPTION = './/select[@id="proof_of_identity_form_subtype"]/option[text()="VALUE"]';

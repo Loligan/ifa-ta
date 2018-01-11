@@ -1,13 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: meldon
- * Date: 10.1.18
- * Time: 15.37
- */
 
-namespace TestAutomation\All4BomBundle\Features\Context\src\PageObject;
+namespace TestAutomation\All4BomBundle\Features\Context\src\PageObject\Crm;
 
+use TestAutomation\All4BomBundle\Features\Context\src\PageObject\PageObject;
 
 class LoginPageObject extends PageObject
 {

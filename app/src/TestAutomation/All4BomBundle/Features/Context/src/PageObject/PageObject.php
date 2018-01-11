@@ -7,11 +7,9 @@ use Facebook\WebDriver\Remote\LocalFileDetector;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\RemoteWebElement;
 use Facebook\WebDriver\WebDriverBy;
-use Facebook\WebDriver\WebDriverKeys;
 use Facebook\WebDriver\WebDriverSelect;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use TestAutomation\All4BomBundle\Features\Context\FeatureContext;
-use TestAutomationCoreBundle\Entity\Feature;
 
 class PageObject
 {
@@ -62,7 +60,7 @@ class PageObject
     }
 
     protected static function findElementAndSendFile($xpath,$filePath){
-        $inputAttach = self::findElement($xpath);
+        $inputAttach = self::findElement($xpath,false);
         $inputAttach->setFileDetector(new LocalFileDetector());
         $inputAttach->sendKeys($filePath);
     }

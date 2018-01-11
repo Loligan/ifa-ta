@@ -6,7 +6,7 @@
  * Time: 16.10
  */
 
-namespace TestAutomation\All4BomBundle\Features\Context\src\PageObject\Clients;
+namespace TestAutomation\All4BomBundle\Features\Context\src\PageObject\Crm\Clients;
 
 
 use TestAutomation\All4BomBundle\Features\Context\src\PageObject\PageObject;
